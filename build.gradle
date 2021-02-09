@@ -9,6 +9,7 @@ buildscript {
     dependencies {
         classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "3.+", changing: true
         classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
+        classpath "org.spongepowered:mixingradle:0.7-SNAPSHOT"
         
     }
 }
@@ -22,7 +23,7 @@ plugins {
 
 apply plugin: "net.minecraftforge.gradle"
 apply plugin: "eclipse"
-
+apply plugin: "org.spongepowered.mixin"
 
 
 version = "1.0.0"
@@ -38,6 +39,8 @@ minecraft {
         client {
             workingDirectory project.file("run")
             source sourceSets.main
+              args "c", "mixins.sjkz1code.json"
+            jvmArgs "-Dmixin.debug.export=true", "-Dmixin.debug.verbose=tr
         }
     }
 }
@@ -45,3 +48,38 @@ minecraft {
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.0.1'
    }
+
+   sourceSets {
+    main {
+        ext.refMap = "mixins.sjkz1code.refmap.json"
+    }
+}
+
+jar {
+    manifest {
+        attributes([
+            "MixinConnector": "com.sjkz1.sjkz1code.core.SJKZ1CodeMixinConnector",CO
+            "Implementation-Title": "${archivesBaseName}",
+            "Implementation-Version": "${version}",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+    baseName = "SkyBlockcatia-" + "1.16.5"
+}
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    from(configurations.embed.collect { it.isDirectory() ? it : zipTree(it) }) {
+        exclude "LICENSE.txt", "META-INF/*.txt", "META-INF/MANIFSET.MF", "META-INF/maven/**", "META-INF/*.RSA", "META-INF/*.SF"
+    }
+    manifest {
+        attributes([
+            "MixinConnector": "om.sjkz1.sjkz1code.core.SJKZ1CodeMixinConnector",
+            "Implementation-Title": "${archivesBaseName}",
+            "Implementation-Version": "${version}",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+    baseName = "SkyBlockcatia-" + "1.16.5"
+    classifier = "deobf"
+}
