@@ -31,3 +31,11 @@
 		versionRange="[1.16.5]"
 		ordering="NONE"
 		side="BOTH"
+		
+[[dependencies.sjkz1code]]
+    modId="stevekungs_lib"
+    mandatory=true
+    versionRange="[4.0.3,)"
+    ordering="NONE"
+    side="CLIENT"
+		
