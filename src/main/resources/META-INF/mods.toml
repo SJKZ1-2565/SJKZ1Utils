@@ -9,10 +9,11 @@
 	modId="sjkz1code" 
 	version="${file.jarVersion}" 
 	displayName="sjkz1codes" 
+	#displayURL="https://www.curseforge.com/minecraft/mc-mods/mcbreaker"
 	logoFile="logo.png" 
-	credits="SJKZ1"
+	credits="ToastKun"
 	authors="SJKZ1" 
-	description='''My mod.''
+	description='''An special mod for ToastKun'''
 
 
 
