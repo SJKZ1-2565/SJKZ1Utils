@@ -21,12 +21,12 @@ public class SJKZ1EventHandler
 	{
 	
 		MainMenuScreen menu = (MainMenuScreen) event.getGui();
-		if(SJKZ1CodeMod.isMookBirhtDay())
+		if(!SJKZ1CodeMod.isMookBirhtDay())
 		{
-			menu.splashText = "Happy birthday, Naruemol Prabnarai\u2764";
+			menu.splashText = "Happy birthday, Naruemol Prabnarai \u2764";
 		}
 	
 	}
-
+	
 }
 

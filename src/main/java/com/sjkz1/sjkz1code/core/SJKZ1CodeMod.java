@@ -35,5 +35,5 @@ public class SJKZ1CodeMod
 	public static int day()
 	{
 		return LocalDate.now().get(ChronoField.DAY_OF_MONTH);
-	}
+	} 
 }
