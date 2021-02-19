@@ -1,1 +1,1 @@
-gradlew build && gradlew deobf
+gradlew build
