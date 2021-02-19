@@ -13,7 +13,7 @@
 	logoFile="logo.png" 
 	credits="ToastKun"
 	authors="SJKZ1" 
-	description='''An special mod for ToastKun'''
+	description='''My mod.'''
 
 
 
@@ -21,7 +21,7 @@
 
 		modId="forge" 
 		mandatory=true 
-		versionRange="[36.0.1,)" 
+		versionRange="[36.0.22,)" 
 		ordering="NONE"
 		side="BOTH"
 		

@@ -1,32 +1,28 @@
 package com.sjkz1.sjkz1code.event;
 
-import com.sjkz1.sjkz1code.core.SJKZ1CodeMod;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.MainMenuScreen;
-import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.SoundEvents;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
+
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+
 
 public class SJKZ1EventHandler 
 {
-
 	public Minecraft mc;
+	public PlayerEntity player;
 	public SJKZ1EventHandler() 
 	{
 		this.mc = Minecraft.getInstance();
 	}
-
 	@SubscribeEvent
-	public void onGuiOpen(GuiOpenEvent event)
+	public void tes(LivingAttackEvent e) 
 	{
-	
-		MainMenuScreen menu = (MainMenuScreen) event.getGui();
-		if(!SJKZ1CodeMod.isMookBirhtDay())
+		if(e.getSource().setProjectile().getTrueSource() instanceof PlayerEntity && !mc.player.abilities.isCreativeMode)
 		{
-			menu.splashText = "Happy birthday, Naruemol Prabnarai \u2764";
+			mc.player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 0.4F, -1F);
 		}
-	
 	}
-	
 }
 
