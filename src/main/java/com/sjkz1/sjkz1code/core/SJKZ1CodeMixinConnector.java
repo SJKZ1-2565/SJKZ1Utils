@@ -10,6 +10,6 @@ public class SJKZ1CodeMixinConnector implements IMixinConnector
     public void connect()
     {
         MixinBootstrap.init();
-        Mixins.addConfiguration("mixins.sjkz1code.json");
+        Mixins.addConfiguration("mixin.sjkz1code.json");
     }
 }

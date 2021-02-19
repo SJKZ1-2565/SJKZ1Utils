@@ -40,7 +40,7 @@ minecraft {
         client {
             workingDirectory project.file("run")
             source sourceSets.main
-              args "--mixin", "mixins.sjkz1code.json"
+              args "--mixin", "mixin.sjkz1code.json"
              jvmArgs "-Dmixin.debug.export=true", "-Dmixin.debug.verbose=true"
         }
     }
@@ -64,7 +64,7 @@ dependencies {
 
    sourceSets {
     main {
-        ext.refMap = "mixins.sjkz1code.refmap.json"
+        ext.refMap = "mixin.sjkz1code.refmap.json"
     }
 }
 

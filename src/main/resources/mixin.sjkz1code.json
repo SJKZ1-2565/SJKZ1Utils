@@ -4,7 +4,7 @@
     "minVersion": "0.8.2",
     "compatibilityLevel": "JAVA_8",
     "package": "com.sjkz1.sjkz1code.mixin",
-    "refmap": "mixins.sjkz1code.refmap.json",
+    "refmap": "mixin.sjkz1code.refmap.json",
     "target": "@env(DEFAULT)",
     "mixins": [],
     "client": [
