@@ -11,6 +11,10 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 
+/**
+ * @author SteveKunG
+ *
+ */
 public class ConFigScreen  extends Screen
 {
 	public ConFigScreen()

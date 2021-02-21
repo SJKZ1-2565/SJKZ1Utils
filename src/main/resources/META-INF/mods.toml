@@ -7,10 +7,10 @@
 
 
 	modId="sjkz1code" 
-	version="${file.jarVersion}" 
+	version="1.0.0" 
 	displayName="SJKZ1Code" 
 	logoFile="logo.png" 
-	credits="SJKZ1"
+	credits="SJKZ1, SteveKunG"
 	authors="SJKZ1" 
 	description='''My mod.'''
 

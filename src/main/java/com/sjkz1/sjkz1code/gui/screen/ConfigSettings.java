@@ -12,7 +12,10 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.text.StringTextComponent;
 
-
+/**
+ * @author SteveKunG
+ *
+ */
 public class ConfigSettings extends Screen 
 {
 	private final Screen parent;
