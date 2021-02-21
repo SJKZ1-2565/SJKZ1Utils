@@ -3,6 +3,7 @@ package com.sjkz1.sjkz1code.core;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 
+import com.sjkz1.sjkz1code.core.key.SJKZ1KeyBinding;
 import com.sjkz1.sjkz1code.event.SJKZ1EventHandler;
 import com.stevekung.stevekungslib.utils.CommonUtils;
 import com.stevekung.stevekungslib.utils.LoggerBase;
@@ -22,6 +23,7 @@ public class SJKZ1CodeMod
 	}
 	private void phaseOne(FMLClientSetupEvent event)
     {
+		SJKZ1KeyBinding.init();
         CommonUtils.registerEventHandler(new SJKZ1EventHandler());
     }
 

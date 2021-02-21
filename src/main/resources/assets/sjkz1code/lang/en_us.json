@@ -1,0 +1,18 @@
+{
+	
+	"key.categories.sjkz1code":"SJKZ1Code",
+	"key.quick_config.desc":"Open Config",
+	"key.dance.desc":"Dance",
+	
+
+	"menu.main.title":"Main Config Screen",
+	"menu.current_selected_profile": "Current Profile is '%s'",
+	"menu.reset_config": "Reset Config",
+	"menu.reset_config_confirm": "Do you want to restore default config?",
+	"menu.config.title": "Config Settings...",
+	"sjkz1_setting.disableFireOverlay":"Disable Fire Overlay",
+	"sjkz1_setting.playSoundWhenProjectileHitTheTarget":"Play sound When Projectile Hit The Target",
+	 
+	
+	 "misc.config.reset_config": "Config '%s' has been reset to default setting!"
+}	
