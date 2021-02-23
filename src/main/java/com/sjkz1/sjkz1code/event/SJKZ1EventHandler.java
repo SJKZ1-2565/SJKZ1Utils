@@ -2,7 +2,7 @@ package com.sjkz1.sjkz1code.event;
 
 import com.sjkz1.sjkz1code.config.SJKZ1CodeSettings;
 import com.sjkz1.sjkz1code.core.key.SJKZ1KeyBinding;
-import com.sjkz1.sjkz1code.gui.screen.ConFigScreen;
+import com.sjkz1.sjkz1code.gui.screen.ConfigScreen;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,7 +27,7 @@ public class SJKZ1EventHandler
 	@SubscribeEvent
 	public void onAttackEntity(LivingAttackEvent e)
 	{
-		if(SJKZ1CodeSettings.INSTANCE.playSoundWhenProjectileHitTheTarget)
+		if(SJKZ1CodeSettings.INSTANCE.playSoundWhenProjectileHitTheEntity)
 		{
 			if(e.getSource().isProjectile() && e.getSource().getTrueSource() instanceof PlayerEntity)
 			{
@@ -36,7 +36,7 @@ public class SJKZ1EventHandler
 		}
 	}
 	@SubscribeEvent
-	public void removeFireOverlay(RenderBlockOverlayEvent event)
+	public void disableFireOverlay(RenderBlockOverlayEvent event)
 	{
 		if(SJKZ1CodeSettings.INSTANCE.disableFireOverlay)
 		{
@@ -51,7 +51,7 @@ public class SJKZ1EventHandler
 	{
 		if (SJKZ1KeyBinding.OPEN_CONFIG.isKeyDown())
 		{
-			this.mc.displayGuiScreen(new ConFigScreen());
+			this.mc.displayGuiScreen(new ConfigScreen());
 		}
 		else if(SJKZ1KeyBinding.DANCE.isKeyDown())
 		{

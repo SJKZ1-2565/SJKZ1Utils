@@ -15,9 +15,9 @@ import net.minecraft.util.text.TextFormatting;
  * @author SteveKunG
  *
  */
-public class ConFigScreen  extends Screen
+public class ConfigScreen  extends Screen
 {
-	public ConFigScreen()
+	public ConfigScreen()
 	{
 		super(StringTextComponent.EMPTY);
 	}

@@ -29,11 +29,11 @@ public class SJKZ1CodeSettings extends Settings
 	private static File PROFILE_FILE;
 
 	public boolean disableFireOverlay = true;
-	public boolean playSoundWhenProjectileHitTheTarget = true;
+	public boolean playSoundWhenProjectileHitTheEntity = true;
 
 
 	public static final BooleanSettings<SJKZ1CodeSettings> DISABLE_FIRE_OVERLAY = new BooleanSettings<>("sjkz1_setting.disableFireOverlay", config -> config.disableFireOverlay, (config, value) -> config.disableFireOverlay = value);
-	public static final BooleanSettings<SJKZ1CodeSettings> PLAYSOUND_WHEN_PROJECTILE_HIT_THE_TARGET = new BooleanSettings<>("sjkz1_setting.playSoundWhenProjectileHitTheTarget", config -> config.playSoundWhenProjectileHitTheTarget, (config, value) -> config.playSoundWhenProjectileHitTheTarget = value);
+	public static final BooleanSettings<SJKZ1CodeSettings> PLAYSOUND_WHEN_PROJECTILE_HIT_THE_ENTITY = new BooleanSettings<>("sjkz1_setting.playSoundWhenProjectileHitTheEntity", config -> config.playSoundWhenProjectileHitTheEntity, (config, value) -> config.playSoundWhenProjectileHitTheEntity = value);
 
 	private SJKZ1CodeSettings() {}
 
@@ -54,7 +54,7 @@ public class SJKZ1CodeSettings extends Settings
 				return;
 			}
 			this.disableFireOverlay = this.getBoolean(nbt, "Disable Fire Overlay", this.disableFireOverlay);
-			this.playSoundWhenProjectileHitTheTarget = this.getBoolean(nbt, "PlaySound When Projectile Hit The Target", this.playSoundWhenProjectileHitTheTarget);
+			this.playSoundWhenProjectileHitTheEntity = this.getBoolean(nbt, "PlaySound When Projectile Hit The Target", this.playSoundWhenProjectileHitTheEntity);
 
 			SJKZ1CodeMod.LOGGER.info("Loading extended config {}", SJKZ1CodeSettings.PROFILE_FILE.getPath());
 		}
@@ -73,7 +73,7 @@ public class SJKZ1CodeSettings extends Settings
 		{
 			CompoundNBT nbt = new CompoundNBT();
 			nbt.putBoolean("Disable Fire Overlay", this.disableFireOverlay);
-			nbt.putBoolean("PlaySound When Projectile Hit The Target", this.playSoundWhenProjectileHitTheTarget);
+			nbt.putBoolean("PlaySound When Projectile Hit The Entity", this.playSoundWhenProjectileHitTheEntity);
 
 
 
