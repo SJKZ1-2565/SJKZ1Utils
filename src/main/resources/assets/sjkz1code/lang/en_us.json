@@ -1,4 +1,4 @@
-{
+fig {
 	
 	"key.categories.sjkz1code":"SJKZ1Code",
 	"key.quick_config.desc":"Open Config",
@@ -11,7 +11,8 @@
 	"menu.reset_config_confirm": "Do you want to restore default config?",
 	"menu.config.title": "Config Settings...",
 	"sjkz1_setting.disableFireOverlay":"Disable Fire Overlay",
-	"sjkz1_setting.playSoundWhenProjectileHitTheTarget":"Play sound When Projectile Hit The Target",
+	"sjkz1_setting.playSoundWhenProjectileHitTheEntity":"Play sound When Projectile Hit The Entity",
+	"sjkz1_setting.autoRespawn":"Auto Respawn",
 	 
 	
 	 "misc.config.reset_config": "Config '%s' has been reset to default setting!"

@@ -30,10 +30,12 @@ public class SJKZ1CodeSettings extends Settings
 
 	public boolean disableFireOverlay = true;
 	public boolean playSoundWhenProjectileHitTheEntity = true;
+	public boolean autoRespawn = false;
 
 
 	public static final BooleanSettings<SJKZ1CodeSettings> DISABLE_FIRE_OVERLAY = new BooleanSettings<>("sjkz1_setting.disableFireOverlay", config -> config.disableFireOverlay, (config, value) -> config.disableFireOverlay = value);
 	public static final BooleanSettings<SJKZ1CodeSettings> PLAYSOUND_WHEN_PROJECTILE_HIT_THE_ENTITY = new BooleanSettings<>("sjkz1_setting.playSoundWhenProjectileHitTheEntity", config -> config.playSoundWhenProjectileHitTheEntity, (config, value) -> config.playSoundWhenProjectileHitTheEntity = value);
+	public static final BooleanSettings<SJKZ1CodeSettings> AUTO_RESPAWN = new BooleanSettings<>("sjkz1_setting.autoRespawn", config -> config.autoRespawn, (config, value) -> config.autoRespawn = value);
 
 	private SJKZ1CodeSettings() {}
 
@@ -53,9 +55,9 @@ public class SJKZ1CodeSettings extends Settings
 			{
 				return;
 			}
-			this.disableFireOverlay = this.getBoolean(nbt, "Disable Fire Overlay", this.disableFireOverlay);
-			this.playSoundWhenProjectileHitTheEntity = this.getBoolean(nbt, "PlaySound When Projectile Hit The Target", this.playSoundWhenProjectileHitTheEntity);
-
+			this.disableFireOverlay = this.getBoolean(nbt, "DisableFireOverlay", this.disableFireOverlay);
+			this.playSoundWhenProjectileHitTheEntity = this.getBoolean(nbt, "PlaySoundWhenProjectileHitTheTarget", this.playSoundWhenProjectileHitTheEntity);
+			this.autoRespawn = this.getBoolean(nbt, "AutoRespawn", this.autoRespawn);
 			SJKZ1CodeMod.LOGGER.info("Loading extended config {}", SJKZ1CodeSettings.PROFILE_FILE.getPath());
 		}
 		catch (Exception e) {}
@@ -72,8 +74,9 @@ public class SJKZ1CodeSettings extends Settings
 		try
 		{
 			CompoundNBT nbt = new CompoundNBT();
-			nbt.putBoolean("Disable Fire Overlay", this.disableFireOverlay);
-			nbt.putBoolean("PlaySound When Projectile Hit The Entity", this.playSoundWhenProjectileHitTheEntity);
+			nbt.putBoolean("DisableFireOverlay", this.disableFireOverlay);
+			nbt.putBoolean("PlaySoundWhenProjectileHitTheTarget", this.playSoundWhenProjectileHitTheEntity);
+			nbt.putBoolean("AutoRespawn", this.autoRespawn);
 
 
 
