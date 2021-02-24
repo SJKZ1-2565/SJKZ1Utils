@@ -7,20 +7,19 @@ import com.sjkz1.sjkz1code.gui.screen.ConfigScreen;
 import com.stevekung.stevekungslib.utils.client.ClientUtils;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.DeathScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent.OverlayType;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 
@@ -87,16 +86,15 @@ public class SJKZ1EventHandler
 	}
 	
 	@SubscribeEvent
-	public void AutoRespawn(GuiOpenEvent event) {
-		if (event.isCancelable()) 
-		{
-			if (event.getGui() instanceof DeathScreen && SJKZ1CodeSettings.INSTANCE.autoRespawn && mc.player.isShowDeathScreen()) 
+	public void AutoRespawn(LivingDeathEvent event) {
+		 
+		
+			if (event.getEntity() instanceof PlayerEntity && SJKZ1CodeSettings.INSTANCE.autoRespawn && !mc.player.isShowDeathScreen()) 
 			{
-				event.setCanceled(true);
 				mc.player.respawnPlayer();
 				ClientUtils.printClientMessage("Dead Position X: " + mc.player.getPosition().getX() + " Y: " + mc.player.getPosition().getY() + " Z: " + mc.player.getPosition().getZ(),TextFormatting.YELLOW);
 			}
-		}
+		
 	}
 	
 	@SubscribeEvent
