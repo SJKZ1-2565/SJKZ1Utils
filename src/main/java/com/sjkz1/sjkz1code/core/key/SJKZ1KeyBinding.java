@@ -15,7 +15,7 @@ public class SJKZ1KeyBinding
 
 	    public static void init()
 	    {
-	    	SJKZ1KeyBinding.OPEN_CONFIG = new KeyBindingBase("key.quick_config.desc", SJKZ1CodeMod.MOD_ID, GLFW.GLFW_KEY_R);
+	    	SJKZ1KeyBinding.OPEN_CONFIG = new KeyBindingBase("key.config.desc", SJKZ1CodeMod.MOD_ID, GLFW.GLFW_KEY_R);
 	    	SJKZ1KeyBinding.DANCE = new KeyBindingBase("key.dance.desc", SJKZ1CodeMod.MOD_ID, GLFW.GLFW_KEY_O);
 	        ClientRegistry.registerKeyBinding(SJKZ1KeyBinding.OPEN_CONFIG);
 	        ClientRegistry.registerKeyBinding(SJKZ1KeyBinding.DANCE);
