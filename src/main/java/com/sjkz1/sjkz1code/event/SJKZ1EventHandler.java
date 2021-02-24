@@ -89,7 +89,7 @@ public class SJKZ1EventHandler
 	public void AutoRespawn(LivingDeathEvent event) {
 		 
 		
-			if (event.getEntity() instanceof PlayerEntity && SJKZ1CodeSettings.INSTANCE.autoRespawn && !mc.player.isShowDeathScreen()) 
+			if (event.getEntity() instanceof PlayerEntity && SJKZ1CodeSettings.INSTANCE.autoRespawn) 
 			{
 				mc.player.respawnPlayer();
 				ClientUtils.printClientMessage("Dead Position X: " + mc.player.getPosition().getX() + " Y: " + mc.player.getPosition().getY() + " Z: " + mc.player.getPosition().getZ(),TextFormatting.YELLOW);
