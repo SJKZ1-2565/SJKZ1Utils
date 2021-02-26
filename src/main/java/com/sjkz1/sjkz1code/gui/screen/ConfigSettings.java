@@ -20,7 +20,7 @@ public class ConfigSettings extends Screen
 {
 	private final Screen parent;
     private ConfigButtonListWidget optionsRowList;
-    private static final ImmutableList<AbstractSettings<SJKZ1CodeSettings>> OPTIONS = ImmutableList.of(SJKZ1CodeSettings.DISABLE_FIRE_OVERLAY,SJKZ1CodeSettings.PLAYSOUND_WHEN_PROJECTILE_HIT_THE_ENTITY,SJKZ1CodeSettings.AUTO_RESPAWN);
+    private static final ImmutableList<AbstractSettings<SJKZ1CodeSettings>> OPTIONS = ImmutableList.of(SJKZ1CodeSettings.DISABLE_FIRE_OVERLAY,SJKZ1CodeSettings.PLAYSOUND_WHEN_PROJECTILE_HIT_THE_ENTITY,SJKZ1CodeSettings.AUTO_RESPAWN,SJKZ1CodeSettings.LOG_IN_TOAST);
 
     public ConfigSettings(Screen parent)
     {

@@ -1,7 +1,7 @@
 {
 	
 	"key.categories.sjkz1code":"SJKZ1Code",
-	"key.quick_config.desc":"Open Config",
+	"key.config.desc":"Open Config",
 	"key.dance.desc":"Dance",
 	
 
@@ -13,6 +13,7 @@
 	"sjkz1_setting.disableFireOverlay":"Disable Fire Overlay",
 	"sjkz1_setting.playSoundWhenProjectileHitTheEntity":"Play sound When Projectile Hit The Entity",
 	"sjkz1_setting.autoRespawn":"Auto Respawn",
+	"sjkz1_setting.loginToast":"Log-in Toasts",
 	 
 	
 	 "misc.config.reset_config": "Config '%s' has been reset to default setting!"

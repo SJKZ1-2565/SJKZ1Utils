@@ -4,6 +4,7 @@ import com.sjkz1.sjkz1code.config.SJKZ1CodeSettings;
 import com.sjkz1.sjkz1code.core.key.SJKZ1KeyBinding;
 import com.sjkz1.sjkz1code.gui.button.ConfigButton;
 import com.sjkz1.sjkz1code.gui.screen.ConfigScreen;
+import com.sjkz1.sjkz1code.gui.toasts.LoginToasts;
 import com.stevekung.stevekungslib.utils.client.ClientUtils;
 
 import net.minecraft.client.Minecraft;
@@ -13,6 +14,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggedInEvent;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent;
@@ -51,6 +53,18 @@ public class SJKZ1EventHandler
 			if(event.getOverlayType() == OverlayType.FIRE)
 			{
 				event.setCanceled(SJKZ1CodeSettings.INSTANCE.disableFireOverlay);
+			}
+		}
+	}
+	@SubscribeEvent
+	public void onPlayerLoggin(LoggedInEvent event)
+	{
+		if(event.getPlayer() != null)
+		{
+			String toasts = "You are playing on";
+			if(SJKZ1CodeSettings.INSTANCE.loginToast)
+			{
+				this.mc.getToastGui().add(new LoginToasts(toasts));
 			}
 		}
 	}
