@@ -5,6 +5,7 @@ import com.sjkz1.sjkz1code.core.key.SJKZ1KeyBinding;
 import com.sjkz1.sjkz1code.gui.button.ConfigButton;
 import com.sjkz1.sjkz1code.gui.screen.ConfigScreen;
 import com.sjkz1.sjkz1code.gui.toasts.LoginToasts;
+import com.stevekung.stevekungslib.utils.GameProfileUtils;
 import com.stevekung.stevekungslib.utils.client.ClientUtils;
 
 import net.minecraft.client.Minecraft;
@@ -27,7 +28,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class SJKZ1EventHandler 
 {
-	public Minecraft mc;
+	private final Minecraft mc;
 	public static boolean dancing = false;
 	public static boolean show = false;
 	public SJKZ1EventHandler() 
@@ -61,7 +62,7 @@ public class SJKZ1EventHandler
 	{
 		if(event.getPlayer() != null)
 		{
-			String toasts = "You are playing on";
+			String toasts = GameProfileUtils.getUsername();
 			if(SJKZ1CodeSettings.INSTANCE.loginToast)
 			{
 				this.mc.getToastGui().add(new LoginToasts(toasts));
