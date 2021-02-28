@@ -24,7 +24,6 @@ import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -112,7 +111,7 @@ public class SJKZ1EventHandler
 			InfoUtils.INSTANCE.getMouseOverEntityExtended(this.mc);
 			if(mc.player != null && mc.world != null)
 			{
-				CreeperEntity creeper  = (CreeperEntity) getNearestMobEntity(mc.player);
+				CreeperEntity creeper  = getNearestCreeperEntity(mc.player);
 				if(creeper != null && SJKZ1CodeSettings.INSTANCE.CreeperDetector && (!mc.player.isCreative() && !mc.player.isSpectator()))
 				{
 					if(mc.player.ticksExisted %20 == 0)
@@ -199,7 +198,7 @@ public class SJKZ1EventHandler
 	}
 	
 	@Nullable
-	private MobEntity getNearestMobEntity(PlayerEntity player)
+	private CreeperEntity getNearestCreeperEntity(PlayerEntity player)
     {
         Vector3d lookVec = player.getLookVec().normalize();
         Vector3d targetPos = player.getPositionVec().add(lookVec.x, 1, lookVec.z);
@@ -208,13 +207,13 @@ public class SJKZ1EventHandler
         {
             float closestDistance = 10;
             CreeperEntity entity = null;
-            for(CreeperEntity mobEntities : mobEntity)
+            for(CreeperEntity CreeperEntities : mobEntity)
             {
-                float distance = player.getDistance(mobEntities);
+                float distance = player.getDistance(CreeperEntities);
                 if(distance < closestDistance || closestDistance == 10F)
                 {
                     closestDistance = distance;
-                    entity = mobEntities;
+                    entity = CreeperEntities;
                 }
             }
             return entity;
