@@ -1,28 +1,42 @@
 package com.sjkz1.sjkz1code.event;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sjkz1.sjkz1code.config.SJKZ1CodeSettings;
 import com.sjkz1.sjkz1code.core.key.SJKZ1KeyBinding;
 import com.sjkz1.sjkz1code.gui.button.ConfigButton;
 import com.sjkz1.sjkz1code.gui.screen.ConfigScreen;
 import com.sjkz1.sjkz1code.gui.toasts.LoginToasts;
 import com.stevekung.stevekungslib.utils.GameProfileUtils;
+import com.stevekung.stevekungslib.utils.TextComponentUtils;
 import com.stevekung.stevekungslib.utils.client.ClientUtils;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
+import net.minecraft.client.particle.DragonBreathParticle;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.entity.model.EntityModel;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.boss.dragon.EnderDragonEntity;
+import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggedInEvent;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent.OverlayType;
+import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 
@@ -84,6 +98,7 @@ public class SJKZ1EventHandler
 	@SubscribeEvent
 	public void Dancing(TickEvent.ClientTickEvent event)
 	{
+	
 		if(event.phase == TickEvent.Phase.START)
 		{
 			if(dancing == true)
@@ -101,9 +116,8 @@ public class SJKZ1EventHandler
 	}
 	
 	@SubscribeEvent
-	public void AutoRespawn(LivingDeathEvent event) {
-		 
-		
+	public void AutoRespawn(LivingDeathEvent event) 
+	{
 			if (event.getEntity() instanceof PlayerEntity && SJKZ1CodeSettings.INSTANCE.autoRespawn) 
 			{
 				mc.player.respawnPlayer();
@@ -121,6 +135,38 @@ public class SJKZ1EventHandler
 				int height = screen.height  / 2 - 106;
 				int width = screen.width / 2;
 				event.addWidget(new ConfigButton(width + 37, height + 90, button -> this.mc.displayGuiScreen(new ConfigScreen())));
+				
 			}	
+	}
+	@SubscribeEvent
+	public void onInitGui(RenderLivingEvent.Post<LivingEntity, EntityModel<LivingEntity>> event)
+	{
+		  LivingEntity entity = event.getEntity();
+	      float health = entity.getHealth();
+	      MatrixStack stack = event.getMatrixStack();
+	      IRenderTypeBuffer Buffer = event.getBuffers();
+	      boolean halfHealth = health <= entity.getMaxHealth() / 2F;
+	      boolean halfHealth1 = health <= entity.getMaxHealth() / 4F;
+	      double distance = entity.getDistanceSq(this.mc.getRenderManager().info.getProjectedView());
+	      TextFormatting color = halfHealth ? TextFormatting.RED : halfHealth1 ? TextFormatting.DARK_RED : TextFormatting.GREEN;
+	      if (distance < 1024.0D)
+	      {
+	    	  if (SJKZ1CodeSettings.INSTANCE.HealtStatus && !this.mc.gameSettings.hideGUI && !entity.isInvisible() && !(entity instanceof ClientPlayerEntity || entity instanceof ArmorStandEntity))
+	            {
+	    		  	ITextComponent displayNameInheart = TextComponentUtils.formatted("\u2764 " +  String.format("%.1f", health),color);
+	                float height = entity.getHeight() + 0.5F;
+	                stack.push();
+	                stack.translate(0.0D, height, 0.0D);
+	                stack.rotate(this.mc.getRenderManager().getCameraOrientation());
+	                stack.scale(-0.025F, -0.025F, 0.025F);
+	                Matrix4f matrix4f = stack.getLast().getMatrix();
+	                float textBackgroundOpacity = mc.gameSettings.getTextBackgroundOpacity(0.25F);
+	                int textColor = (int)(textBackgroundOpacity * 255.0F) << 24;
+	                FontRenderer fontrenderer = this.mc.getRenderManager().getFontRenderer();
+	                float textX = -fontrenderer.getStringPropertyWidth(displayNameInheart) / 2;
+	                fontrenderer.func_243247_a(displayNameInheart, textX, 10, -1, false, matrix4f, Buffer, false, textColor, 125);
+	                stack.pop();
+	            }
+	      }
 	}
 }
