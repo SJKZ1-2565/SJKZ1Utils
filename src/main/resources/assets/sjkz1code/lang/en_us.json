@@ -15,6 +15,7 @@
 	"sjkz1_setting.autoRespawn":"Auto Respawn",
 	"sjkz1_setting.loginToast":"Log-in Toasts",
 	"sjkz1_setting.HealtStatus":"Healt Status",
+	"sjkz1_setting.CreeperDetector":"Creeper Detector",
 	 
 	
 	 "misc.config.reset_config": "Config '%s' has been reset to default setting!"

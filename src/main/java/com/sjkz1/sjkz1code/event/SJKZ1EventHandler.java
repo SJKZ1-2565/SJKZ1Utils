@@ -1,11 +1,16 @@
 package com.sjkz1.sjkz1code.event;
 
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sjkz1.sjkz1code.config.SJKZ1CodeSettings;
 import com.sjkz1.sjkz1code.core.key.SJKZ1KeyBinding;
 import com.sjkz1.sjkz1code.gui.button.ConfigButton;
 import com.sjkz1.sjkz1code.gui.screen.ConfigScreen;
 import com.sjkz1.sjkz1code.gui.toasts.LoginToasts;
+import com.sjkz1.sjkz1code.utils.InfoUtils;
 import com.stevekung.stevekungslib.utils.GameProfileUtils;
 import com.stevekung.stevekungslib.utils.TextComponentUtils;
 import com.stevekung.stevekungslib.utils.client.ClientUtils;
@@ -13,16 +18,21 @@ import com.stevekung.stevekungslib.utils.client.ClientUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
+import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggedInEvent;
@@ -42,6 +52,7 @@ public class SJKZ1EventHandler
 	private final Minecraft mc;
 	public static boolean dancing = false;
 	public static boolean show = false;
+
 	public SJKZ1EventHandler() 
 	{
 		this.mc = Minecraft.getInstance();
@@ -93,20 +104,34 @@ public class SJKZ1EventHandler
 		}
 	}
 	@SubscribeEvent
-	public void Dancing(TickEvent.ClientTickEvent event)
+	public void TickEvent(TickEvent.ClientTickEvent event)
 	{
 	
 		if(event.phase == TickEvent.Phase.START)
 		{
-			if(dancing == true)
+			InfoUtils.INSTANCE.getMouseOverEntityExtended(this.mc);
+			if(mc.player != null && mc.world != null)
 			{
-				if(mc.player.ticksExisted %10 == 0)
+				CreeperEntity creeper  = (CreeperEntity) getNearestMobEntity(mc.player);
+				if(creeper != null && SJKZ1CodeSettings.INSTANCE.CreeperDetector && (!mc.player.isCreative() && !mc.player.isSpectator()))
 				{
-					mc.player.swingArm(Hand.MAIN_HAND);
+					if(mc.player.ticksExisted %20 == 0)
+					{
+						ClientUtils.setOverlayMessage(TextFormatting.DARK_GREEN + "Creeper" +TextFormatting.DARK_RED + " is nearby you!");
+						mc.player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, -2F);
+					}
+				
 				}
-				if(mc.player.ticksExisted %10 == 5)
+				else if(dancing == true)
 				{
-					mc.player.swingArm(Hand.OFF_HAND);
+					if(mc.player.ticksExisted %10 == 0)
+					{
+						mc.player.swingArm(Hand.MAIN_HAND);
+					}
+					if(mc.player.ticksExisted %10 == 5)
+					{
+						mc.player.swingArm(Hand.OFF_HAND);
+					}
 				}
 			}
 		}
@@ -132,8 +157,14 @@ public class SJKZ1EventHandler
 				int height = screen.height  / 2 - 106;
 				int width = screen.width / 2;
 				event.addWidget(new ConfigButton(width + 37, height + 90, button -> this.mc.displayGuiScreen(new ConfigScreen())));
-				
-			}	
+			}
+			else if(screen instanceof MainMenuScreen)
+			{
+				int height = screen.height  / 2 - 106;
+				int width = screen.width / 2;
+				event.addWidget(new ConfigButton(width + 37, height + 90, button -> this.mc.displayGuiScreen(new ConfigScreen())));
+			}
+			
 	}
 	@SubscribeEvent
 	public void onInitGui(RenderLivingEvent.Post<LivingEntity, EntityModel<LivingEntity>> event)
@@ -148,7 +179,7 @@ public class SJKZ1EventHandler
 	      TextFormatting color = halfHealth ? TextFormatting.RED : halfHealth1 ? TextFormatting.DARK_RED : TextFormatting.GREEN;
 	      if (distance < 1024.0D)
 	      {
-	    	  if (SJKZ1CodeSettings.INSTANCE.HealtStatus && !this.mc.gameSettings.hideGUI && !entity.isInvisible() && !(entity instanceof ClientPlayerEntity || entity instanceof ArmorStandEntity))
+	    	  if (SJKZ1CodeSettings.INSTANCE.HealtStatus && !this.mc.gameSettings.hideGUI && !entity.isInvisible() && !(entity instanceof ClientPlayerEntity || entity instanceof ArmorStandEntity) && entity == InfoUtils.INSTANCE.extendedPointedEntity)
 	            {
 	    		  	ITextComponent displayNameInheart = TextComponentUtils.formatted("\u2764 " +  String.format("%.1f", health),color);
 	                float height = entity.getHeight() + 0.5F;
@@ -161,9 +192,33 @@ public class SJKZ1EventHandler
 	                int textColor = (int)(textBackgroundOpacity * 255.0F) << 24;
 	                FontRenderer fontrenderer = this.mc.getRenderManager().getFontRenderer();
 	                float textX = -fontrenderer.getStringPropertyWidth(displayNameInheart) / 2;
-	                fontrenderer.func_243247_a(displayNameInheart, textX, -10, -1, false, matrix4f, Buffer, false, textColor, 155);
+	                fontrenderer.func_243247_a(displayNameInheart, textX, -15, -1, false, matrix4f, Buffer, false, textColor, 155);
 	                stack.pop();
 	            }
 	      }
 	}
+	
+	@Nullable
+	private MobEntity getNearestMobEntity(PlayerEntity player)
+    {
+        Vector3d lookVec = player.getLookVec().normalize();
+        Vector3d targetPos = player.getPositionVec().add(lookVec.x, 1, lookVec.z);
+        List<CreeperEntity> mobEntity = player.world.getEntitiesWithinAABB(CreeperEntity.class, new AxisAlignedBB(targetPos.subtract(10, 10, 10), targetPos.add(10, 10, 10)));
+        if(mobEntity.size() > 0)
+        {
+            float closestDistance = 10;
+            CreeperEntity entity = null;
+            for(CreeperEntity mobEntities : mobEntity)
+            {
+                float distance = player.getDistance(mobEntities);
+                if(distance < closestDistance || closestDistance == 10F)
+                {
+                    closestDistance = distance;
+                    entity = mobEntities;
+                }
+            }
+            return entity;
+        }
+        return null;
+    }
 }
