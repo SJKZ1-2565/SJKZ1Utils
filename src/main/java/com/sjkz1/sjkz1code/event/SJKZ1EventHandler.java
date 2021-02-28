@@ -161,7 +161,7 @@ public class SJKZ1EventHandler
 	                int textColor = (int)(textBackgroundOpacity * 255.0F) << 24;
 	                FontRenderer fontrenderer = this.mc.getRenderManager().getFontRenderer();
 	                float textX = -fontrenderer.getStringPropertyWidth(displayNameInheart) / 2;
-	                fontrenderer.func_243247_a(displayNameInheart, textX, 10, -1, false, matrix4f, Buffer, false, textColor, 125);
+	                fontrenderer.func_243247_a(displayNameInheart, textX, -10, -1, false, matrix4f, Buffer, false, textColor, 155);
 	                stack.pop();
 	            }
 	      }

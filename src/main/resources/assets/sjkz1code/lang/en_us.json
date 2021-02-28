@@ -14,6 +14,7 @@
 	"sjkz1_setting.playSoundWhenProjectileHitTheEntity":"Play sound When Projectile Hit The Entity",
 	"sjkz1_setting.autoRespawn":"Auto Respawn",
 	"sjkz1_setting.loginToast":"Log-in Toasts",
+	"sjkz1_setting.HealtStatus":"Healt Status",
 	 
 	
 	 "misc.config.reset_config": "Config '%s' has been reset to default setting!"
