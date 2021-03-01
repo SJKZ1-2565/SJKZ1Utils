@@ -7,9 +7,9 @@ import javax.annotation.Nullable;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sjkz1.sjkz1code.config.SJKZ1CodeSettings;
 import com.sjkz1.sjkz1code.core.key.SJKZ1KeyBinding;
-import com.sjkz1.sjkz1code.gui.button.ConfigButton;
 import com.sjkz1.sjkz1code.gui.screen.ConfigScreen;
 import com.sjkz1.sjkz1code.gui.toasts.LoginToasts;
+import com.sjkz1.sjkz1code.utils.EntityUtils;
 import com.sjkz1.sjkz1code.utils.InfoUtils;
 import com.stevekung.stevekungslib.utils.GameProfileUtils;
 import com.stevekung.stevekungslib.utils.TextComponentUtils;
@@ -20,7 +20,6 @@ import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.entity.LivingEntity;
@@ -105,7 +104,7 @@ public class SJKZ1EventHandler
 	@SubscribeEvent
 	public void TickEvent(TickEvent.ClientTickEvent event)
 	{
-	
+
 		if(event.phase == TickEvent.Phase.START)
 		{
 			InfoUtils.INSTANCE.getMouseOverEntityExtended(this.mc);
@@ -116,10 +115,12 @@ public class SJKZ1EventHandler
 				{
 					if(mc.player.ticksExisted %20 == 0)
 					{
-						ClientUtils.setOverlayMessage(TextFormatting.DARK_GREEN + "Creeper" +TextFormatting.DARK_RED + " is nearby you!");
+						int distance = (int) mc.player.getDistance(creeper);
+						ClientUtils.setOverlayMessage(TextFormatting.DARK_GREEN + "Creeper" +TextFormatting.DARK_RED + " is nearby you! \u2248 " + String.valueOf(distance) + " block away!");
 						mc.player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, -2F);
+						EntityUtils.setGlowing(creeper, TextFormatting.GREEN , "creeper");
 					}
-				
+
 				}
 				else if(dancing == true)
 				{
@@ -135,89 +136,85 @@ public class SJKZ1EventHandler
 			}
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void AutoRespawn(LivingDeathEvent event) 
 	{
-			if (event.getEntity() instanceof PlayerEntity && SJKZ1CodeSettings.INSTANCE.autoRespawn) 
-			{
-				mc.player.respawnPlayer();
-				ClientUtils.printClientMessage("Dead Position X: " + mc.player.getPosition().getX() + " Y: " + mc.player.getPosition().getY() + " Z: " + mc.player.getPosition().getZ(),TextFormatting.YELLOW);
-			}
-		
+		if (event.getEntity() instanceof PlayerEntity && SJKZ1CodeSettings.INSTANCE.autoRespawn) 
+		{
+			mc.player.respawnPlayer();
+			ClientUtils.printClientMessage("Dead Position X: " + mc.player.getPosition().getX() + " Y: " + mc.player.getPosition().getY() + " Z: " + mc.player.getPosition().getZ(),TextFormatting.YELLOW);
+		}
+
 	}
-	
+
 	@SubscribeEvent
 	public void onInitGui(GuiScreenEvent.InitGuiEvent.Post event)
 	{
 		Screen screen = event.getGui();
-			if (screen instanceof InventoryScreen)
+		if(screen instanceof MainMenuScreen)
+		{
+			MainMenuScreen menu = (MainMenuScreen) event.getGui();
+			if(InfoUtils.isMookBirhtDay())
 			{
-				int height = screen.height  / 2 - 106;
-				int width = screen.width / 2;
-				event.addWidget(new ConfigButton(width + 37, height + 90, button -> this.mc.displayGuiScreen(new ConfigScreen())));
+				menu.splashText = "Happy birthday, Mook \u2764";
 			}
-			else if(screen instanceof MainMenuScreen)
-			{
-				int height = screen.height  / 2 - 106;
-				int width = screen.width / 2;
-				event.addWidget(new ConfigButton(width + 37, height + 90, button -> this.mc.displayGuiScreen(new ConfigScreen())));
-			}
-			
+		}
+
 	}
 	@SubscribeEvent
 	public void onInitGui(RenderLivingEvent.Post<LivingEntity, EntityModel<LivingEntity>> event)
 	{
-		  LivingEntity entity = event.getEntity();
-	      float health = entity.getHealth();
-	      MatrixStack stack = event.getMatrixStack();
-	      IRenderTypeBuffer Buffer = event.getBuffers();
-	      boolean halfHealth = health <= entity.getMaxHealth() / 2F;
-	      boolean halfHealth1 = health <= entity.getMaxHealth() / 4F;
-	      double distance = entity.getDistanceSq(this.mc.getRenderManager().info.getProjectedView());
-	      TextFormatting color = halfHealth ? TextFormatting.RED : halfHealth1 ? TextFormatting.DARK_RED : TextFormatting.GREEN;
-	      if (distance < 1024.0D)
-	      {
-	    	  if (SJKZ1CodeSettings.INSTANCE.HealtStatus && !this.mc.gameSettings.hideGUI && !entity.isInvisible() && !(entity instanceof ClientPlayerEntity || entity instanceof ArmorStandEntity) && entity == InfoUtils.INSTANCE.extendedPointedEntity)
-	            {
-	    		  	ITextComponent displayNameInheart = TextComponentUtils.formatted("\u2764 " +  String.format("%.1f", health),color);
-	                float height = entity.getHeight() + 0.5F;
-	                stack.push();
-	                stack.translate(0.0D, height, 0.0D);
-	                stack.rotate(this.mc.getRenderManager().getCameraOrientation());
-	                stack.scale(-0.025F, -0.025F, 0.025F);
-	                Matrix4f matrix4f = stack.getLast().getMatrix();
-	                float textBackgroundOpacity = mc.gameSettings.getTextBackgroundOpacity(0.25F);
-	                int textColor = (int)(textBackgroundOpacity * 255.0F) << 24;
-	                FontRenderer fontrenderer = this.mc.getRenderManager().getFontRenderer();
-	                float textX = -fontrenderer.getStringPropertyWidth(displayNameInheart) / 2;
-	                fontrenderer.func_243247_a(displayNameInheart, textX, -15, -1, false, matrix4f, Buffer, false, textColor, 155);
-	                stack.pop();
-	            }
-	      }
+		LivingEntity entity = event.getEntity();
+		float health = entity.getHealth();
+		MatrixStack stack = event.getMatrixStack();
+		IRenderTypeBuffer Buffer = event.getBuffers();
+		boolean halfHealth = health <= entity.getMaxHealth() / 2F;
+		boolean halfHealth1 = health <= entity.getMaxHealth() / 4F;
+		double distance = entity.getDistanceSq(this.mc.getRenderManager().info.getProjectedView());
+		TextFormatting color = halfHealth ? TextFormatting.RED : halfHealth1 ? TextFormatting.DARK_RED : TextFormatting.GREEN;
+		if (distance < 1024.0D)
+		{
+			if (SJKZ1CodeSettings.INSTANCE.HealtStatus && !this.mc.gameSettings.hideGUI && !entity.isInvisible() && !(entity instanceof ClientPlayerEntity || entity instanceof ArmorStandEntity) && entity == InfoUtils.INSTANCE.extendedPointedEntity)
+			{
+				ITextComponent displayNameInheart = TextComponentUtils.formatted("\u2764 " +  String.format("%.1f", health),color);
+				float height = entity.getHeight() + 0.5F;
+				stack.push();
+				stack.translate(0.0D, height, 0.0D);
+				stack.rotate(this.mc.getRenderManager().getCameraOrientation());
+				stack.scale(-0.025F, -0.025F, 0.025F);
+				Matrix4f matrix4f = stack.getLast().getMatrix();
+				float textBackgroundOpacity = mc.gameSettings.getTextBackgroundOpacity(0.25F);
+				int textColor = (int)(textBackgroundOpacity * 255.0F) << 24;
+				FontRenderer fontrenderer = this.mc.getRenderManager().getFontRenderer();
+				float textX = -fontrenderer.getStringPropertyWidth(displayNameInheart) / 2;
+				fontrenderer.func_243247_a(displayNameInheart, textX, -15, -1, false, matrix4f, Buffer, false, textColor, 155);
+				stack.pop();
+			}
+		}
 	}
-	
+
 	@Nullable
 	private CreeperEntity getNearestCreeperEntity(PlayerEntity player)
-    {
-        Vector3d lookVec = player.getLookVec().normalize();
-        Vector3d targetPos = player.getPositionVec().add(lookVec.x, 1, lookVec.z);
-        List<CreeperEntity> mobEntity = player.world.getEntitiesWithinAABB(CreeperEntity.class, new AxisAlignedBB(targetPos.subtract(10, 10, 10), targetPos.add(10, 10, 10)));
-        if(mobEntity.size() > 0)
-        {
-            float closestDistance = 10;
-            CreeperEntity entity = null;
-            for(CreeperEntity CreeperEntities : mobEntity)
-            {
-                float distance = player.getDistance(CreeperEntities);
-                if(distance < closestDistance || closestDistance == 10F)
-                {
-                    closestDistance = distance;
-                    entity = CreeperEntities;
-                }
-            }
-            return entity;
-        }
-        return null;
-    }
+	{
+		Vector3d lookVec = player.getLookVec().normalize();
+		Vector3d targetPos = player.getPositionVec().add(lookVec.x, 1, lookVec.z);
+		List<CreeperEntity> mobEntity = player.world.getEntitiesWithinAABB(CreeperEntity.class, new AxisAlignedBB(targetPos.subtract(10, 10, 10), targetPos.add(10, 10, 10)));
+		if(mobEntity.size() > 0)
+		{
+			float closestDistance = 10;
+			CreeperEntity entity = null;
+			for(CreeperEntity CreeperEntities : mobEntity)
+			{
+				float distance = player.getDistance(CreeperEntities);
+				if(distance < closestDistance || closestDistance == 10F)
+				{
+					closestDistance = distance;
+					entity = CreeperEntities;
+				}
+			}
+			return entity;
+		}
+		return null;
+	}
 }

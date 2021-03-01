@@ -1,15 +1,11 @@
 package com.sjkz1.sjkz1code.utils;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
+import java.time.LocalDate;
+import java.time.temporal.ChronoField;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.monster.CreeperEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.EntityRayTraceResult;
@@ -19,6 +15,19 @@ public class InfoUtils
 {
 	public static final InfoUtils INSTANCE = new InfoUtils();
 	public Entity extendedPointedEntity;
+	public static boolean isMookBirhtDay()
+	{
+		return month() == 6 && day() == 19;
+	}
+	public static int month()
+	{
+		return LocalDate.now().get(ChronoField.MONTH_OF_YEAR);
+	}
+
+	public static int day()
+	{
+		return LocalDate.now().get(ChronoField.DAY_OF_MONTH);
+	}
 	public void getMouseOverEntityExtended(Minecraft mc)
     {
         Entity entity = mc.getRenderViewEntity();
@@ -59,29 +68,4 @@ public class InfoUtils
             }
         }
     }
-	
-	@Nullable
-	public MobEntity getNearestMobEntity(PlayerEntity player)
-    {
-        Vector3d lookVec = player.getLookVec().normalize();
-        Vector3d targetPos = player.getPositionVec().add(lookVec.x, 1, lookVec.z);
-        List<CreeperEntity> mobEntity = player.world.getEntitiesWithinAABB(CreeperEntity.class, new AxisAlignedBB(targetPos.subtract(10, 10, 10), targetPos.add(10, 10, 10)));
-        if(mobEntity.size() > 0)
-        {
-            float closestDistance = 10;
-            CreeperEntity entity = null;
-            for(CreeperEntity mobEntities : mobEntity)
-            {
-                float distance = player.getDistance(mobEntities);
-                if(distance < closestDistance || closestDistance == 10F)
-                {
-                    closestDistance = distance;
-                    entity = mobEntities;
-                }
-            }
-            return entity;
-        }
-        return null;
-    }
-
 }
