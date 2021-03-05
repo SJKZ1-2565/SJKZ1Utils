@@ -10,12 +10,13 @@
 	"menu.reset_config": "Reset Config",
 	"menu.reset_config_confirm": "Do you want to restore default config?",
 	"menu.config.title": "Config Settings...",
-	"sjkz1_setting.disableFireOverlay":"Disable Fire Overlay",
+	"sjkz1_setting.disableOverlays":"Disable Fire , Water Overlays",
 	"sjkz1_setting.playSoundWhenProjectileHitTheEntity":"Play sound When Projectile Hit The Entity",
 	"sjkz1_setting.autoRespawn":"Auto Respawn",
 	"sjkz1_setting.loginToast":"Log-in Toasts",
-	"sjkz1_setting.HealtStatus":"Healt Status",
+	"sjkz1_setting.HealtStatus":"Health Status",
 	"sjkz1_setting.CreeperDetector":"Creeper Detector",
+	"sjkz1_setting.AutoElytraBoost":"Auto Elytra boosting",
 	 
 	
 	 "misc.config.reset_config": "Config '%s' has been reset to default setting!"

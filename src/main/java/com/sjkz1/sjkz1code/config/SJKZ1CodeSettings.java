@@ -28,20 +28,22 @@ public class SJKZ1CodeSettings extends Settings
 	public static String CURRENT_PROFILE = "";
 	private static File PROFILE_FILE;
 
-	public boolean disableFireOverlay = true;
+	public boolean disableOverlays = true;
 	public boolean loginToast = true;
 	public boolean playSoundWhenProjectileHitTheEntity = false;
 	public boolean autoRespawn = false;
 	public boolean HealtStatus = false;
 	public boolean CreeperDetector = false;
+	public boolean AutoElytraBoost = false;
 
 
-	public static final BooleanSettings<SJKZ1CodeSettings> DISABLE_FIRE_OVERLAY = new BooleanSettings<>("sjkz1_setting.disableFireOverlay", config -> config.disableFireOverlay, (config, value) -> config.disableFireOverlay = value);
+	public static final BooleanSettings<SJKZ1CodeSettings> DISABLE_OVERLAY = new BooleanSettings<>("sjkz1_setting.disableOverlays", config -> config.disableOverlays, (config, value) -> config.disableOverlays = value);
 	public static final BooleanSettings<SJKZ1CodeSettings> PLAYSOUND_WHEN_PROJECTILE_HIT_THE_ENTITY = new BooleanSettings<>("sjkz1_setting.playSoundWhenProjectileHitTheEntity", config -> config.playSoundWhenProjectileHitTheEntity, (config, value) -> config.playSoundWhenProjectileHitTheEntity = value);
 	public static final BooleanSettings<SJKZ1CodeSettings> AUTO_RESPAWN = new BooleanSettings<>("sjkz1_setting.autoRespawn", config -> config.autoRespawn, (config, value) -> config.autoRespawn = value);
 	public static final BooleanSettings<SJKZ1CodeSettings> LOG_IN_TOAST = new BooleanSettings<>("sjkz1_setting.loginToast", config -> config.loginToast, (config, value) -> config.loginToast = value);
 	public static final BooleanSettings<SJKZ1CodeSettings> HEALTH_STATUS = new BooleanSettings<>("sjkz1_setting.HealtStatus", config -> config.HealtStatus, (config, value) -> config.HealtStatus = value);
 	public static final BooleanSettings<SJKZ1CodeSettings> CREEPER_DETECTOR = new BooleanSettings<>("sjkz1_setting.CreeperDetector", config -> config.CreeperDetector, (config, value) -> config.CreeperDetector = value);
+	public static final BooleanSettings<SJKZ1CodeSettings> AUTO_ELYTRA_BOOST = new BooleanSettings<>("sjkz1_setting.AutoElytraBoost", config -> config.AutoElytraBoost, (config, value) -> config.AutoElytraBoost = value);
 
 	private SJKZ1CodeSettings() {}
 
@@ -61,12 +63,13 @@ public class SJKZ1CodeSettings extends Settings
 			{
 				return;
 			}
-			this.disableFireOverlay = this.getBoolean(nbt, "DisableFireOverlay", this.disableFireOverlay);
+			this.disableOverlays = this.getBoolean(nbt, "disableOverlays", this.disableOverlays);
 			this.playSoundWhenProjectileHitTheEntity = this.getBoolean(nbt, "PlaySoundWhenProjectileHitTheTarget", this.playSoundWhenProjectileHitTheEntity);
 			this.autoRespawn = this.getBoolean(nbt, "AutoRespawn", this.autoRespawn);
 			this.loginToast = this.getBoolean(nbt, "LoginToast", this.loginToast);
 			this.HealtStatus = this.getBoolean(nbt, "HealtStatus", this.HealtStatus);
 			this.CreeperDetector = this.getBoolean(nbt, "CreeperDetector", this.CreeperDetector);
+			this.AutoElytraBoost = this.getBoolean(nbt, "AutoElytraBoost", this.AutoElytraBoost);
 			SJKZ1CodeMod.LOGGER.info("Loading extended config {}", SJKZ1CodeSettings.PROFILE_FILE.getPath());
 		}
 		catch (Exception e) {}
@@ -83,12 +86,13 @@ public class SJKZ1CodeSettings extends Settings
 		try
 		{
 			CompoundNBT nbt = new CompoundNBT();
-			nbt.putBoolean("DisableFireOverlay", this.disableFireOverlay);
+			nbt.putBoolean("disableOverlays", this.disableOverlays);
 			nbt.putBoolean("PlaySoundWhenProjectileHitTheTarget", this.playSoundWhenProjectileHitTheEntity);
 			nbt.putBoolean("AutoRespawn", this.autoRespawn);
 			nbt.putBoolean("LoginToast", this.loginToast);
 			nbt.putBoolean("HealtStatus", this.HealtStatus);
 			nbt.putBoolean("CreeperDetector", this.CreeperDetector);
+			nbt.putBoolean("AutoElytraBoost", this.AutoElytraBoost);
 
 
 

@@ -6,10 +6,10 @@ import javax.annotation.Nullable;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sjkz1.sjkz1code.config.SJKZ1CodeSettings;
+import com.sjkz1.sjkz1code.core.SJKZ1CodeMod;
 import com.sjkz1.sjkz1code.core.key.SJKZ1KeyBinding;
 import com.sjkz1.sjkz1code.gui.screen.ConfigScreen;
 import com.sjkz1.sjkz1code.gui.toasts.LoginToasts;
-import com.sjkz1.sjkz1code.utils.EntityUtils;
 import com.sjkz1.sjkz1code.utils.InfoUtils;
 import com.stevekung.stevekungslib.utils.GameProfileUtils;
 import com.stevekung.stevekungslib.utils.TextComponentUtils;
@@ -26,6 +26,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.FireworkRocketItem;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -69,11 +70,11 @@ public class SJKZ1EventHandler
 	@SubscribeEvent
 	public void disableFireOverlay(RenderBlockOverlayEvent event)
 	{
-		if(SJKZ1CodeSettings.INSTANCE.disableFireOverlay)
+		if(SJKZ1CodeSettings.INSTANCE.disableOverlays)
 		{
-			if(event.getOverlayType() == OverlayType.FIRE)
+			if(event.getOverlayType() == OverlayType.WATER && event.getOverlayType() == OverlayType.FIRE)
 			{
-				event.setCanceled(SJKZ1CodeSettings.INSTANCE.disableFireOverlay);
+				event.setCanceled(SJKZ1CodeSettings.INSTANCE.disableOverlays);
 			}
 		}
 	}
@@ -118,7 +119,6 @@ public class SJKZ1EventHandler
 						int distance = (int) mc.player.getDistance(creeper);
 						ClientUtils.setOverlayMessage(TextFormatting.DARK_GREEN + "Creeper" +TextFormatting.DARK_RED + " is nearby you! \u2248 " + String.valueOf(distance) + " block away!");
 						mc.player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, -2F);
-						EntityUtils.setGlowing(creeper, TextFormatting.GREEN , "creeper");
 					}
 
 				}
@@ -131,6 +131,13 @@ public class SJKZ1EventHandler
 					if(mc.player.ticksExisted %10 == 5)
 					{
 						mc.player.swingArm(Hand.OFF_HAND);
+					}
+				}
+				else if(mc.player.getHeldItemMainhand().getItem() instanceof FireworkRocketItem && mc.player.isElytraFlying() && SJKZ1CodeSettings.INSTANCE.AutoElytraBoost)
+				{
+					if(mc.player.ticksExisted %120 == 0)
+					{
+						mc.playerController.processRightClick(mc.player, mc.world, Hand.MAIN_HAND);
 					}
 				}
 			}
