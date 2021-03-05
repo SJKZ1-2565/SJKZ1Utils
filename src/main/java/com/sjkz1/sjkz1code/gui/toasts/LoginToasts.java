@@ -1,4 +1,7 @@
 package com.sjkz1.sjkz1code.gui.toasts;
+import java.util.Date;
+
+import com.ibm.icu.util.Calendar;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.stevekung.stevekungslib.utils.ColorUtils;
@@ -28,11 +31,12 @@ public class LoginToasts  implements IToast
     @Override
     public IToast.Visibility func_230444_a_(MatrixStack matrixStack, ToastGui toastGui, long delta)
     {
+    	Date date = Calendar.getInstance().getTime();
         toastGui.getMinecraft().getTextureManager().bindTexture(TEXTURE);
         RenderSystem.color3f(1.0F, 1.0F, 1.0F);
         AbstractGui.blit(matrixStack, 0, 0, 0, 0, 160, 32, 160, 32);
         toastGui.getMinecraft().fontRenderer.func_243246_a(matrixStack, TextComponentUtils.formatted(this.name, TextFormatting.BOLD), 30, 7, ColorUtils.toDecimal(255, 255, 85));
-        toastGui.getMinecraft().fontRenderer.drawString(matrixStack,"Welcome back!", 30, 18, ColorUtils.toDecimal(255, 255, 255));
+        toastGui.getMinecraft().fontRenderer.drawString(matrixStack,"Logged in time " + date, 30, 18, ColorUtils.toDecimal(255, 255, 255));
         toastGui.getMinecraft().getItemRenderer().renderItemAndEffectIntoGUI(this.itemStack, 8, 8);
         return delta >= 15000L ? IToast.Visibility.HIDE : IToast.Visibility.SHOW;
     }
