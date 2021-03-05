@@ -1,15 +1,17 @@
 package com.sjkz1.sjkz1code.core;
 
+import com.sjkz1.sjkz1code.command.PlayerPosCommnad;
 import com.sjkz1.sjkz1code.core.key.SJKZ1KeyBinding;
 import com.sjkz1.sjkz1code.event.SJKZ1EventHandler;
 import com.stevekung.stevekungslib.utils.CommonUtils;
 import com.stevekung.stevekungslib.utils.LoggerBase;
+import com.stevekung.stevekungslib.utils.client.command.ClientCommands;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 /**
  * @author SJKZ1
- *
+ * @version 1.0.1
  */
 @Mod(SJKZ1CodeMod.MOD_ID)
 public class SJKZ1CodeMod 
@@ -23,8 +25,14 @@ public class SJKZ1CodeMod
 	}
 	private void phaseOne(FMLClientSetupEvent event)
     {
+		this.setupCommands();
 		SJKZ1KeyBinding.init();
         CommonUtils.registerEventHandler(new SJKZ1EventHandler());
     }
+	private void setupCommands()
+	{
+		ClientCommands.register(new PlayerPosCommnad());
+		LOGGER.info("Successfully setup command");
+	}
 }
 
