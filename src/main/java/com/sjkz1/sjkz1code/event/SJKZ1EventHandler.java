@@ -8,7 +8,9 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sjkz1.sjkz1code.config.SJKZ1CodeSettings;
 import com.sjkz1.sjkz1code.core.key.SJKZ1KeyBinding;
 import com.sjkz1.sjkz1code.gui.screen.ConfigScreen;
+import com.sjkz1.sjkz1code.gui.toasts.FaceBookToasts;
 import com.sjkz1.sjkz1code.gui.toasts.LoginToasts;
+import com.sjkz1.sjkz1code.gui.toasts.YoutubeToasts;
 import com.sjkz1.sjkz1code.utils.InfoUtils;
 import com.stevekung.stevekungslib.utils.GameProfileUtils;
 import com.stevekung.stevekungslib.utils.TextComponentUtils;
@@ -86,6 +88,8 @@ public class SJKZ1EventHandler
 			if(SJKZ1CodeSettings.INSTANCE.loginToast)
 			{
 				this.mc.getToastGui().add(new LoginToasts(playerName));
+				this.mc.getToastGui().add(new YoutubeToasts("Youtube : SJKZ1"));
+				this.mc.getToastGui().add(new FaceBookToasts("Facebook"));
 			}
 		}
 	}
