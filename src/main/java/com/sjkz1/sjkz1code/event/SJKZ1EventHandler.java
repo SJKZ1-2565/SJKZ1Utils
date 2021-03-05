@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.sjkz1.sjkz1code.config.SJKZ1CodeSettings;
-import com.sjkz1.sjkz1code.core.SJKZ1CodeMod;
 import com.sjkz1.sjkz1code.core.key.SJKZ1KeyBinding;
 import com.sjkz1.sjkz1code.gui.screen.ConfigScreen;
 import com.sjkz1.sjkz1code.gui.toasts.LoginToasts;
@@ -83,10 +82,10 @@ public class SJKZ1EventHandler
 	{
 		if(event.getPlayer() != null)
 		{
-			String toasts = GameProfileUtils.getUsername();
+			String playerName = GameProfileUtils.getUsername();
 			if(SJKZ1CodeSettings.INSTANCE.loginToast)
 			{
-				this.mc.getToastGui().add(new LoginToasts(toasts));
+				this.mc.getToastGui().add(new LoginToasts(playerName));
 			}
 		}
 	}
