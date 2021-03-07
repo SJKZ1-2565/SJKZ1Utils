@@ -209,15 +209,15 @@ public class SJKZ1EventHandler
 	{
 		Vector3d lookVec = player.getLookVec().normalize();
 		Vector3d targetPos = player.getPositionVec().add(lookVec.x, 1, lookVec.z);
-		List<CreeperEntity> mobEntity = player.world.getEntitiesWithinAABB(CreeperEntity.class, new AxisAlignedBB(targetPos.subtract(10, 10, 10), targetPos.add(10, 10, 10)));
-		if(mobEntity.size() > 0)
+		List<CreeperEntity> creeper = player.world.getEntitiesWithinAABB(CreeperEntity.class, new AxisAlignedBB(targetPos.subtract(10, 10, 10), targetPos.add(10, 10, 10)));
+		if(creeper.size() > 0)
 		{
-			float closestDistance = 10;
+			float closestDistance = 8F;
 			CreeperEntity entity = null;
-			for(CreeperEntity CreeperEntities : mobEntity)
+			for(CreeperEntity CreeperEntities : creeper)
 			{
 				float distance = player.getDistance(CreeperEntities);
-				if(distance < closestDistance || closestDistance == 10F)
+				if(distance < closestDistance || closestDistance == 8F)
 				{
 					closestDistance = distance;
 					entity = CreeperEntities;

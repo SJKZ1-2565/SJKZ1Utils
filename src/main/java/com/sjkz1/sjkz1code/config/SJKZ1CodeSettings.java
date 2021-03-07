@@ -13,7 +13,6 @@ import com.stevekung.stevekungslib.utils.LangUtils;
 import com.stevekung.stevekungslib.utils.client.ClientUtils;
 import com.stevekung.stevekungslib.utils.config.BooleanSettings;
 import com.stevekung.stevekungslib.utils.config.Settings;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompressedStreamTools;
@@ -35,8 +34,9 @@ public class SJKZ1CodeSettings extends Settings
 	public boolean HealtStatus = false;
 	public boolean CreeperDetector = false;
 	public boolean AutoElytraBoost = false;
-
-
+	
+	  
+	  
 	public static final BooleanSettings<SJKZ1CodeSettings> DISABLE_OVERLAY = new BooleanSettings<>("sjkz1_setting.disableOverlays", config -> config.disableOverlays, (config, value) -> config.disableOverlays = value);
 	public static final BooleanSettings<SJKZ1CodeSettings> PLAYSOUND_WHEN_PROJECTILE_HIT_THE_ENTITY = new BooleanSettings<>("sjkz1_setting.playSoundWhenProjectileHitTheEntity", config -> config.playSoundWhenProjectileHitTheEntity, (config, value) -> config.playSoundWhenProjectileHitTheEntity = value);
 	public static final BooleanSettings<SJKZ1CodeSettings> AUTO_RESPAWN = new BooleanSettings<>("sjkz1_setting.autoRespawn", config -> config.autoRespawn, (config, value) -> config.autoRespawn = value);
@@ -44,7 +44,7 @@ public class SJKZ1CodeSettings extends Settings
 	public static final BooleanSettings<SJKZ1CodeSettings> HEALTH_STATUS = new BooleanSettings<>("sjkz1_setting.HealtStatus", config -> config.HealtStatus, (config, value) -> config.HealtStatus = value);
 	public static final BooleanSettings<SJKZ1CodeSettings> CREEPER_DETECTOR = new BooleanSettings<>("sjkz1_setting.CreeperDetector", config -> config.CreeperDetector, (config, value) -> config.CreeperDetector = value);
 	public static final BooleanSettings<SJKZ1CodeSettings> AUTO_ELYTRA_BOOST = new BooleanSettings<>("sjkz1_setting.AutoElytraBoost", config -> config.AutoElytraBoost, (config, value) -> config.AutoElytraBoost = value);
-
+	
 	private SJKZ1CodeSettings() {}
 
 	public static void setCurrentProfile(String profileName)
@@ -70,7 +70,8 @@ public class SJKZ1CodeSettings extends Settings
 			this.HealtStatus = this.getBoolean(nbt, "HealtStatus", this.HealtStatus);
 			this.CreeperDetector = this.getBoolean(nbt, "CreeperDetector", this.CreeperDetector);
 			this.AutoElytraBoost = this.getBoolean(nbt, "AutoElytraBoost", this.AutoElytraBoost);
-			SJKZ1CodeMod.LOGGER.info("Loading extended config {}", SJKZ1CodeSettings.PROFILE_FILE.getPath());
+			
+			SJKZ1CodeMod.LOGGER.info("Loading config {}", SJKZ1CodeSettings.PROFILE_FILE.getPath());
 		}
 		catch (Exception e) {}
 	}

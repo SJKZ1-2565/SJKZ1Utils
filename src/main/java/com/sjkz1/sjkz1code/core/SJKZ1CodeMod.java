@@ -1,6 +1,6 @@
 package com.sjkz1.sjkz1code.core;
 
-import com.sjkz1.sjkz1code.command.PlayerPosCommnad;
+import com.sjkz1.sjkz1code.command.PlayerPosCommand;
 import com.sjkz1.sjkz1code.core.key.SJKZ1KeyBinding;
 import com.sjkz1.sjkz1code.event.SJKZ1EventHandler;
 import com.stevekung.stevekungslib.utils.CommonUtils;
@@ -22,16 +22,18 @@ public class SJKZ1CodeMod
 	public SJKZ1CodeMod() 
 	{
 		CommonUtils.addModListener(this::phaseOne);
+		LOGGER.info("Preparing setup mod...");
 	}
 	private void phaseOne(FMLClientSetupEvent event)
     {
 		this.setupCommands();
 		SJKZ1KeyBinding.init();
         CommonUtils.registerEventHandler(new SJKZ1EventHandler());
+        LOGGER.info("Successfully setup mod!");
     }
 	private void setupCommands()
 	{
-		ClientCommands.register(new PlayerPosCommnad());
+		ClientCommands.register(new PlayerPosCommand());
 		LOGGER.info("Successfully setup command");
 	}
 }

@@ -9,14 +9,14 @@ import com.stevekung.stevekungslib.utils.client.command.IClientSuggestionProvide
 
 import net.minecraft.client.Minecraft;
 
-public class PlayerPosCommnad implements IClientCommand
+public class PlayerPosCommand implements IClientCommand
 {
 	private static Minecraft mc = Minecraft.getInstance();
 	
 	@Override
 	public void register(CommandDispatcher<IClientSuggestionProvider> command) {
 	
-		command.register(ClientCommands.literal("playerpos").executes(commands -> PlayerPosCommnad.printPlayerPos()));
+		command.register(ClientCommands.literal("playerpos").executes(commands -> PlayerPosCommand.printPlayerPos()));
 	}
 	
 	private static int printPlayerPos()
