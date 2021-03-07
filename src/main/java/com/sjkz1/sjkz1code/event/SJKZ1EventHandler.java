@@ -98,6 +98,7 @@ public class SJKZ1EventHandler
 	{
 		if (SJKZ1KeyBinding.OPEN_CONFIG.isKeyDown())
 		{
+			
 			this.mc.displayGuiScreen(new ConfigScreen());
 		}
 		else if(SJKZ1KeyBinding.DANCE.isKeyDown())
@@ -123,7 +124,6 @@ public class SJKZ1EventHandler
 						ClientUtils.setOverlayMessage(TextFormatting.DARK_GREEN + "Creeper" +TextFormatting.DARK_RED + " is nearby you! \u2248 " + String.valueOf(distance) + " block away!");
 						mc.player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, -2F);
 					}
-
 				}
 				else if(dancing == true)
 				{
@@ -136,11 +136,16 @@ public class SJKZ1EventHandler
 						mc.player.swingArm(Hand.OFF_HAND);
 					}
 				}
-				else if(mc.player.getHeldItemMainhand().getItem() instanceof FireworkRocketItem && mc.player.isElytraFlying() && SJKZ1CodeSettings.INSTANCE.AutoElytraBoost)
+				else if(mc.player.isElytraFlying() && SJKZ1CodeSettings.INSTANCE.AutoElytraBoost)
 				{
-					if(mc.player.ticksExisted %120 == 0)
+					if(mc.player.getHeldItemMainhand().getItem() instanceof FireworkRocketItem || mc.player.getHeldItemOffhand().getItem() instanceof FireworkRocketItem)
 					{
-						mc.playerController.processRightClick(mc.player, mc.world, Hand.MAIN_HAND);
+						Hand hand = mc.player.getActiveHand();
+						
+						if(mc.player.ticksExisted %120 == 0)
+						{
+							mc.playerController.processRightClick(mc.player, mc.world, hand);
+						}
 					}
 				}
 			}

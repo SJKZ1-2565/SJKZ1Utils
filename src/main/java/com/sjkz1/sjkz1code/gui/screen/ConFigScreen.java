@@ -15,8 +15,8 @@ import net.minecraft.util.text.TextFormatting;
  * @author SteveKunG
  *
  */
-public class ConfigScreen  extends Screen
-{
+public class ConfigScreen  extends Screen 
+{	
 	public ConfigScreen()
 	{
 		super(StringTextComponent.EMPTY);
@@ -55,7 +55,7 @@ public class ConfigScreen  extends Screen
 		this.renderBackground(matrixStack);
 		AbstractGui.drawCenteredString(matrixStack, this.font, LangUtils.translate("menu.main.title").deepCopy().appendString(" : ").append(LangUtils.formatted("menu.current_selected_profile", TextFormatting.YELLOW, SJKZ1CodeSettings.CURRENT_PROFILE)), this.width / 2, 10, 16777215);
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
-		
+
 	}
 
 	private void resetConfig(boolean condition)

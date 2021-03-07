@@ -7,12 +7,12 @@
 
 
 	modId="sjkz1code" 
-	version="1.0.1" 
+	version="1.0.2" 
 	displayName="SJKZ1Code" 
 	logoFile="logo.png" 
 	credits="SJKZ1, SteveKunG"
 	authors="SJKZ1" 
-	description='''My mod.'''
+	description='''Small utilities mod for minecraft.'''
 
 
 
