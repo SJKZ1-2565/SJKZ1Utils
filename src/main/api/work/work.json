@@ -1,6 +1,10 @@
-{
-"work":
-	{
-		"list" : "test"
-	}
-}
+[
+    {
+        "name": "Main",
+        "commands": [
+            {
+                "list": "Main Lobby"
+            }
+        ]
+    }
+]
