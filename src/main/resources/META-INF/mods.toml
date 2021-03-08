@@ -20,7 +20,7 @@
 
 		modId="forge" 
 		mandatory=true 
-		versionRange="[36.0.4,)" 
+		versionRange="[36.0.46,)" 
 		ordering="NONE"
 		side="BOTH"
 		
@@ -34,7 +34,7 @@
 [[dependencies.sjkz1code]]
     modId="stevekungs_lib"
     mandatory=true
-    versionRange="[4.0.3,)"
+    versionRange="[4.0.4,)"
     ordering="NONE"
     side="CLIENT"
 		

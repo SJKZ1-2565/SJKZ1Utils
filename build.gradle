@@ -49,15 +49,15 @@ minecraft {
 
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.5-36.0.4'
-    if (file("libs/SteveKunG's-Lib-1.16.5-4.0.3-deobf.jar").exists())
+    minecraft 'net.minecraftforge:forge:1.16.5-36.0.46'
+    if (file("libs/SteveKunG's-Lib-1.16.5-4.0.4-deobf.jar").exists())
     {
-        compile files("libs/SteveKunG's-Lib-1.16.5-4.0.3-deobf.jar")
+        compile files("libs/SteveKunG's-Lib-1.16.5-4.0.4-deobf.jar")
         println("Using existing deobf artifact")
     }
     else
     {
-        compile "stevekungs-lib:SteveKunG's-Lib-1.16.5:4.0.3:deobf"
+        compile "stevekungs-lib:SteveKunG's-Lib-1.16.5:4.0.4:deobf"
         println("Using CurseForge deobf artifact")
     }
    }
@@ -71,7 +71,7 @@ dependencies {
 jar {
     manifest {
         attributes([
-            "MixinConnector": "com.sjkz1.sjkz1code.core.SJKZ1CodeMixinConnector",
+            "MixinConfigs": "mixin.sjkz1code.json",
         ])
     }
     baseName = "SJKZ1Code-" + "1.16.5"

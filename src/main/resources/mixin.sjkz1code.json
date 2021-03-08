@@ -5,7 +5,6 @@
     "compatibilityLevel": "JAVA_8",
     "package": "com.sjkz1.sjkz1code.mixin",
     "refmap": "mixin.sjkz1code.refmap.json",
-    "target": "@env(DEFAULT)",
     "mixins": [],
     "client": [
         "MixinGlowingSkin"
