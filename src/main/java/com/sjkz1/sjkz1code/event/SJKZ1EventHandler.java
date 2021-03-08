@@ -71,13 +71,10 @@ public class SJKZ1EventHandler
 	@SubscribeEvent
 	public void disableFireOverlay(RenderBlockOverlayEvent event)
 	{
-		if(SJKZ1CodeSettings.INSTANCE.disableOverlays)
-		{
-			if(event.getOverlayType() == OverlayType.WATER && event.getOverlayType() == OverlayType.FIRE)
+		if(event.getOverlayType() == OverlayType.WATER && event.getOverlayType() == OverlayType.FIRE)
 			{
 				event.setCanceled(SJKZ1CodeSettings.INSTANCE.disableOverlays);
 			}
-		}
 	}
 	@SubscribeEvent
 	public void onPlayerLoggin(LoggedInEvent event)
