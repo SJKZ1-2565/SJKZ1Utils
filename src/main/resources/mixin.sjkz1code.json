@@ -1,13 +1,11 @@
 {
     "required": true,
-    "verbose": true,
     "minVersion": "0.8.2",
     "compatibilityLevel": "JAVA_8",
     "package": "com.sjkz1.sjkz1code.mixin",
     "refmap": "mixin.sjkz1code.refmap.json",
-    "mixins": [],
     "client": [
-        "MixinGlowingSkin"
+        "MixinPlayerRenderer"
     ],
     "injectors": {
         "defaultRequire": 1

@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.PlayerRenderer;
 
 @Mixin(PlayerRenderer.class)
-public class MixinGlowingSkin 
+public class MixinPlayerRenderer 
 {
 
 	private final PlayerRenderer that = (PlayerRenderer) (Object) this;
