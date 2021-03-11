@@ -21,7 +21,7 @@ public class SJKZ1CodeSettings extends Settings
 {
 	public static SJKZ1CodeSettings INSTANCE = new SJKZ1CodeSettings();
 
-	public static final File SJKZ1_DIR = new File(Minecraft.getInstance().gameDir, "sjkz1");
+	public static final File SJKZ1_DIR = new File(Minecraft.getInstance().gameDir, "sjkz1code");
 	public static final File USER_DIR = new File(SJKZ1CodeSettings.SJKZ1_DIR, GameProfileUtils.getUUID().toString());
 	public static final File DEFAULT_CONFIG_FILE = new File(SJKZ1CodeSettings.USER_DIR, "default.dat");
 	public static String CURRENT_PROFILE = "";
