@@ -32,6 +32,7 @@ public class SJKZ1CodeMod
 {
 	public static final String MOD_ID = "sjkz1code";
 	public static final String VERSION = "1.0.2";
+	public static final String NAME = "SJKZ1Code";
 	private static final File PROFILE = new File(SJKZ1CodeSettings.USER_DIR, "profile.txt");
 	private static final Splitter COLON_SPLITTER = Splitter.on(':').limit(2);
 	public static final LoggerBase LOGGER = new LoggerBase("SJKZ1Code");
