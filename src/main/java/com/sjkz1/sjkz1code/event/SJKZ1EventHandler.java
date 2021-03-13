@@ -17,12 +17,14 @@ import com.stevekung.stevekungslib.utils.TextComponentUtils;
 import com.stevekung.stevekungslib.utils.client.ClientUtils;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.ISound;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.monster.CreeperEntity;
@@ -51,7 +53,6 @@ public class SJKZ1EventHandler
 {
 	private final Minecraft mc;
 	public static boolean dancing = false;
-	public static boolean show = false;
 
 	public SJKZ1EventHandler() 
 	{
@@ -119,14 +120,15 @@ public class SJKZ1EventHandler
 					{
 						int distance = (int) mc.player.getDistance(creeper);
 						ClientUtils.setOverlayMessage(TextFormatting.DARK_GREEN + "Creeper" +TextFormatting.DARK_RED + " is nearby you! \u2248 " + String.valueOf(distance) + " block away!");
-						mc.player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, -2F);
 					}
 				}
 				else if(dancing == true)
 				{
+				
 					if(mc.player.ticksExisted %10 == 0)
 					{
 						mc.player.swingArm(Hand.MAIN_HAND);
+						mc.player.processInitialInteract(mc.player, Hand.MAIN_HAND);
 					}
 					if(mc.player.ticksExisted %10 == 5)
 					{
