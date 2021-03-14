@@ -90,6 +90,8 @@ public class SJKZ1EventHandler
 				this.mc.getToastGui().add(new LoginToasts(playerName));
 				this.mc.getToastGui().add(new YoutubeToasts("Youtube : SJKZ1"));
 				this.mc.getToastGui().add(new FaceBookToasts("Facebook"));
+				this.mc.keyboardListener.setClipboardString("https://discord.gg/seHPPdQ");
+				ClientUtils.printClientMessage("Set Discord invite link to your clipboard!", TextFormatting.GREEN);
 			}
 		}
 	}
