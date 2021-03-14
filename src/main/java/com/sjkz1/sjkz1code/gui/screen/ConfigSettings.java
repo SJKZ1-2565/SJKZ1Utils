@@ -41,7 +41,7 @@ public class ConfigSettings extends Screen
         this.optionsRowList.addAll(OPTIONS);
         this.children.add(this.optionsRowList);
     }
-
+    
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers)
     {
