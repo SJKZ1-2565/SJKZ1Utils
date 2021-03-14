@@ -2,6 +2,7 @@ package com.sjkz1.sjkz1code.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.sjkz1.sjkz1code.event.SJKZ1EventHandler;
 
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -24,7 +25,7 @@ public class GlowingSkin extends LayerRenderer<AbstractClientPlayerEntity, Playe
     @Override
     public void render(MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLight, AbstractClientPlayerEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch)
     {
-        if (!entity.isInvisible() && entity.getName().getString().equals("SJKZ1"))
+        if (!entity.isInvisible() && entity.getName().getString().equals("SJKZ1") && SJKZ1EventHandler.glow == true)
         {
             float time = entity.ticksExisted + partialTicks;
             float alpha = (MathHelper.sin(time / 24) + 1F) / 2F + 0.15F;

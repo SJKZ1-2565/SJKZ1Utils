@@ -12,12 +12,15 @@ public class SJKZ1KeyBinding
 {
 	 public static KeyBinding OPEN_CONFIG;
 	 public static KeyBinding DANCE;
+	 public static KeyBinding GLOWING_LAYER;
 
 	    public static void init()
 	    {
 	    	SJKZ1KeyBinding.OPEN_CONFIG = new KeyBindingBase("key.config.desc", SJKZ1CodeMod.MOD_ID, GLFW.GLFW_KEY_R);
 	    	SJKZ1KeyBinding.DANCE = new KeyBindingBase("key.dance.desc", SJKZ1CodeMod.MOD_ID, GLFW.GLFW_KEY_O);
+	    	SJKZ1KeyBinding.GLOWING_LAYER = new KeyBindingBase("key.glow.desc", SJKZ1CodeMod.MOD_ID, GLFW.GLFW_KEY_N);
 	        ClientRegistry.registerKeyBinding(SJKZ1KeyBinding.OPEN_CONFIG);
 	        ClientRegistry.registerKeyBinding(SJKZ1KeyBinding.DANCE);
+	        ClientRegistry.registerKeyBinding(SJKZ1KeyBinding.GLOWING_LAYER);
 	    }
 }

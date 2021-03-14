@@ -51,11 +51,13 @@ public class SJKZ1EventHandler
 {
 	private final Minecraft mc;
 	public static boolean dancing = false;
+	public static boolean glow = false;
 
 	public SJKZ1EventHandler() 
 	{
 		this.mc = Minecraft.getInstance();
 	}
+	
 	@SubscribeEvent
 	public void onAttackEntity(LivingAttackEvent e)
 	{
@@ -67,6 +69,7 @@ public class SJKZ1EventHandler
 			}
 		}
 	}
+	
 	@SubscribeEvent
 	public void disableFireOverlay(RenderBlockOverlayEvent event)
 	{
@@ -75,6 +78,7 @@ public class SJKZ1EventHandler
 				event.setCanceled(SJKZ1CodeSettings.INSTANCE.disableOverlays);
 			}
 	}
+	
 	@SubscribeEvent
 	public void onPlayerLoggin(LoggedInEvent event)
 	{
@@ -89,6 +93,7 @@ public class SJKZ1EventHandler
 			}
 		}
 	}
+	
 	@SubscribeEvent
 	public void onPressKey(InputEvent.KeyInputEvent event)
 	{
@@ -101,7 +106,12 @@ public class SJKZ1EventHandler
 		{
 			dancing = !dancing;
 		}
+		else if(SJKZ1KeyBinding.GLOWING_LAYER.isKeyDown())
+		{
+			glow = !glow;
+		}
 	}
+	
 	@SubscribeEvent
 	public void TickEvent(TickEvent.ClientTickEvent event)
 	{
@@ -174,6 +184,7 @@ public class SJKZ1EventHandler
 		}
 
 	}
+	
 	@SubscribeEvent
 	public void onInitGui(RenderLivingEvent.Post<LivingEntity, EntityModel<LivingEntity>> event)
 	{
