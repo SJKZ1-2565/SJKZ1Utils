@@ -51,7 +51,7 @@ public class SJKZ1EventHandler
 {
 	private final Minecraft mc;
 	public static boolean dancing = false;
-	public static boolean glow = false;
+	public static boolean glow = true;
 
 	public SJKZ1EventHandler() 
 	{
